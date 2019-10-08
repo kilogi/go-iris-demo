@@ -9,6 +9,7 @@ import (
 	"gopkg.in/go-playground/validator.v9"
 )
 
+//登录
 func Login(ctx iris.Context) {
 	name := ctx.PostValue("name")
 	password := ctx.PostValue("password")
@@ -18,6 +19,7 @@ func Login(ctx iris.Context) {
 	ctx.JSON(ApiResponse(SUCCESS, "登录成功", userInfo))
 }
 
+//注册
 func UserRegister(ctx iris.Context) {
 	name := ctx.PostValue("name")
 	password := ctx.PostValue("password")
@@ -33,7 +35,8 @@ func UserRegister(ctx iris.Context) {
 	//保存
 	hashPassword, _:= bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	user := models.Users{Name: name, Password: hashPassword, Gender: gender}
-	services.CreateUser(&user)
+	userInfo:=services.CreateUser(&user)
 
-	ctx.JSON(ApiResponse(SUCCESS, "用户创建成功", ""))
+	ctx.JSON(ApiResponse(SUCCESS, "用户创建成功", userInfo))
 }
+

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/kataras/iris"
 	"go_mod/models"
 	"go_mod/services"
@@ -19,7 +20,11 @@ func News(ctx iris.Context) {
 func NewsList(ctx iris.Context) {
 	page, _ := ctx.URLParamInt("page")
 	limits, _ := ctx.URLParamInt("limits")
-
+	//获取 token 结构体
+	token := ctx.Values().Get("jwt").(*jwt.Token)
+	//获取jwt中信息
+	fmt.Println(token.Claims.(jwt.MapClaims)["name"])
+	//列表
 	newsList := services.GetNewsList(page, limits)
 	ctx.JSON(ApiResponse(SUCCESS, "获取新闻列表成功", newsList))
 }

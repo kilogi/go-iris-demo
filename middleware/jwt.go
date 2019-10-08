@@ -5,10 +5,7 @@ import (
 	jwtmiddleware "github.com/iris-contrib/middleware/jwt"
 )
 
-/**
- * 验证 jwt
- * @method JwtHandler
- */
+// 验证 jwt
 func JwtHandler() *jwtmiddleware.Middleware {
 	return jwtmiddleware.New(jwtmiddleware.Config{
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {

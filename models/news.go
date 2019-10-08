@@ -11,7 +11,7 @@ func (News) TableName() string {
 
 //表迁移
 type News struct {
-	ID        uint       `gorm:"primary_key" json:"id"`
+	ID        uint       `gorm:"primary_key" json:"id"`  //这里不使用json:"xxx"的话，输出字段会为大写
 	Title     string     `gorm:"size:20" json:"title"`
 	Intro     string     `grom:"size:150" json:"intro"`
 	CreatedAt time.Time  `json:"created_at"`

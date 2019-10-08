@@ -5,6 +5,7 @@ import (
 	"github.com/kataras/iris/context"
 	"github.com/kataras/iris/core/router"
 	"go_mod/controllers"
+	"go_mod/middleware"
 )
 
 //api路由加载
@@ -14,7 +15,7 @@ func LoadApiRoute(app *iris.Application,crs context.Handler) {
 		route.Get("/news", controllers.News)
 		//新闻
 		route.PartyFunc("/news", func(news router.Party) {
-			//news.Use(middleware.JwtHandler().Serve)
+			news.Use(middleware.JwtHandler().Serve)
 			news.Get("/detail/{id:uint}", controllers.NewsDetail)
 			news.Get("/list", controllers.NewsList)
 			news.Post("/create", controllers.CreateNews)

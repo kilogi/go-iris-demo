@@ -14,6 +14,6 @@ func UniteDB() (db *gorm.DB) {
 		return
 	}
 	db.LogMode(true)
-	defer db.Close()
+	//defer db.Close()
 	return db
 }
