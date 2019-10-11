@@ -2,11 +2,9 @@ package main
 
 import (
 	"github.com/iris-contrib/middleware/cors"
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
-	"go_mod/models"
 	"go_mod/routers"
 )
 
@@ -22,10 +20,6 @@ func initApp() (app *iris.Application) {
 	app.OnErrorCode(iris.StatusInternalServerError, func(ctx iris.Context) {
 		ctx.JSON("Server Error")
 	})
-	//连接数据库
-	db, _ := gorm.Open("mysql","root:root@/go_test?charset=utf8&parseTime=True&loc=Local")
-	//数据迁移
-	db.AutoMigrate(&models.News{},&models.Users{})
 	//跨域处理
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.

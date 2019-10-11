@@ -19,7 +19,7 @@ func Login(name string, password string) (userInfo map[string]interface{}) {
 		return
 	}
 	//生成token
-	tokenString:=createToken(user.Name)
+	tokenString := createToken(user.ID, user.Name)
 	//返回信息
 	userInfo = make(map[string]interface{})
 	userInfo["name"] = user.Name
@@ -36,7 +36,7 @@ func CreateUser(user *models.Users) (userInfo map[string]interface{}) {
 		fmt.Printf("CreateUserErr:%s", err)
 	}
 	//生成token
-	tokenString:=createToken(user.Name)
+	tokenString := createToken(user.ID, user.Name)
 	//返回信息
 	userInfo = make(map[string]interface{})
 	userInfo["name"] = user.Name
@@ -47,9 +47,10 @@ func CreateUser(user *models.Users) (userInfo map[string]interface{}) {
 }
 
 //生成token
-func createToken(name string) (tokenString string) {
+func createToken(id uint, name string) (tokenString string) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := make(jwt.MapClaims)
+	claims["id"] = id
 	claims["name"] = name
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
 	claims["iat"] = time.Now().Unix()

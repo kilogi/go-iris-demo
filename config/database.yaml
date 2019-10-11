@@ -1,0 +1,8 @@
+
+Mysql:
+  Host: "127.0.0.1"
+  port: "3306"
+  database: "go_test"
+  Username: "root"
+  Password: "root"
+  Charset: "utf8"
